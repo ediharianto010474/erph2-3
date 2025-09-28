@@ -1,0 +1,172 @@
+{
+  "EDI HARIANTO BIN SUYADI": [
+    {
+      "hari": "ISNIN",
+      "masa": "710 - 740",
+      "matapelajaran": "BI",
+      "kelas": "4C"
+    },
+    {
+      "hari": "ISNIN",
+      "masa": "740 - 810",
+      "matapelajaran": "BI",
+      "kelas": "4C"
+    },
+    {
+      "hari": "ISNIN",
+      "masa": "840 - 910",
+      "matapelajaran": "BI",
+      "kelas": "5C"
+    },
+    {
+      "hari": "ISNIN",
+      "masa": "910 - 940",
+      "matapelajaran": "BI",
+      "kelas": "5C"
+    },
+    {
+      "hari": "ISNIN",
+      "masa": "1000 - 1030",
+      "matapelajaran": "RBT",
+      "kelas": "6C"
+    },
+    {
+      "hari": "ISNIN",
+      "masa": "1030 - 1100",
+      "matapelajaran": "RBT",
+      "kelas": "6C"
+    },
+    {
+      "hari": "SELASA",
+      "masa": "710 - 740",
+      "matapelajaran": "BI",
+      "kelas": "5C"
+    },
+    {
+      "hari": "SELASA",
+      "masa": "740 - 810",
+      "matapelajaran": "BI",
+      "kelas": "5C"
+    },
+    {
+      "hari": "SELASA",
+      "masa": "840 - 910",
+      "matapelajaran": "BI",
+      "kelas": "4C"
+    },
+    {
+      "hari": "SELASA",
+      "masa": "910 - 940",
+      "matapelajaran": "BI",
+      "kelas": "4C"
+    },
+    {
+      "hari": "SELASA",
+      "masa": "1030 - 1100",
+      "matapelajaran": "BI",
+      "kelas": "6C"
+    },
+    {
+      "hari": "SELASA",
+      "masa": "1100 - 1130",
+      "matapelajaran": "BI",
+      "kelas": "6C"
+    },
+    {
+      "hari": "RABU",
+      "masa": "840 - 910",
+      "matapelajaran": "BI",
+      "kelas": "6C"
+    },
+    {
+      "hari": "RABU",
+      "masa": "910 - 940",
+      "matapelajaran": "BI",
+      "kelas": "6C"
+    },
+    {
+      "hari": "RABU",
+      "masa": "1030 - 1100",
+      "matapelajaran": "BI",
+      "kelas": "5C"
+    },
+    {
+      "hari": "RABU",
+      "masa": "1100 - 1130",
+      "matapelajaran": "BI",
+      "kelas": "5C"
+    },
+    {
+      "hari": "KHAMIS",
+      "masa": "710 - 740",
+      "matapelajaran": "BI",
+      "kelas": "6C"
+    },
+    {
+      "hari": "KHAMIS",
+      "masa": "740 - 810",
+      "matapelajaran": "BI",
+      "kelas": "6C"
+    },
+    {
+      "hari": "KHAMIS",
+      "masa": "840 - 910",
+      "matapelajaran": "BI",
+      "kelas": "4C"
+    },
+    {
+      "hari": "KHAMIS",
+      "masa": "910 - 940",
+      "matapelajaran": "BI",
+      "kelas": "4C"
+    },
+    {
+      "hari": "KHAMIS",
+      "masa": "1000 - 1030",
+      "matapelajaran": "RBT",
+      "kelas": "6G"
+    },
+    {
+      "hari": "KHAMIS",
+      "masa": "1030 - 1100",
+      "matapelajaran": "RBT",
+      "kelas": "6G"
+    },
+    {
+      "hari": "JUMAAT",
+      "masa": "740 - 810",
+      "matapelajaran": "BI",
+      "kelas": "6C"
+    },
+    {
+      "hari": "JUMAAT",
+      "masa": "810 - 840",
+      "matapelajaran": "BI",
+      "kelas": "6C"
+    },
+    {
+      "hari": "JUMAAT",
+      "masa": "840 - 910",
+      "matapelajaran": "BI",
+      "kelas": "4C"
+    },
+    {
+      "hari": "JUMAAT",
+      "masa": "910 - 940",
+      "matapelajaran": "BI",
+      "kelas": "4C"
+    },
+    {
+      "hari": "JUMAAT",
+      "masa": "1030 - 1100",
+      "matapelajaran": "BI",
+      "kelas": "5C"
+    },
+    {
+      "hari": "JUMAAT",
+      "masa": "1100 - 1130",
+      "matapelajaran": "BI",
+      "kelas": "5C"
+    }
+  ]
+}
