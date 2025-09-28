@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard PKKK</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 20px;
+        color: #4a148c;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #4a148c;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto 20px;
+        padding: 0 20px;
+    }
+
+    .header-logo {
+        height: 90px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .left-logo {
+        margin-right: 20px;
+    }
+
+    .right-logo {
+        margin-left: 20px;
+    }
+
+    .header-container h1 {
+        margin: 0;
+        flex: 1;
+        text-align: center;
+    }
+
+    .welcome {
+        text-align: center;
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+        color: #6a1b9a;
+    }
+
+    .action-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .logout-link {
+        color: #d32f2f;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 8px 16px;
+        border-radius: 6px;
+        transition: background-color 0.3s, color 0.3s;
+        background-color: #ffebee;
+    }
+
+    .logout-link:hover {
+        background-color: #ffcdd2;
+        color: #b71c1c;
+        text-decoration: none;
+    }
+
+    .main-layout {
+        display: flex;
+        gap: 25px;
+        margin-bottom: 20px;
+    }
+
+    .left-col {
+        flex: 1;
+        box-sizing: border-box;
+    }
+
+    .right-col {
+        flex: 2;
+        box-sizing: border-box;
+    }
+
+    .table-container {
+        width: 100%;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 12px rgba(106, 27, 154, 0.12);
+        border-radius: 10px;
+        overflow: hidden;
+        font-size: 0.85rem;
+        border: 1px solid #e1bee7;
+    }
+
+    .table-container h3 {
+        text-align: center;
+        margin: 0;
+        padding: 12px 0;
+        background-color: #6a1b9a;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .table-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table-container th,
+    .table-container td {
+        border: 1px solid #e1bee7;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .table-container th {
+        background-color: #4a148c;
+        color: white;
+        font-weight: 600;
+    }
+
+    .table-container tr:nth-child(even) {
+        background-color: #f3e5f5;
+    }
+
+    .table-container tr:hover {
+        background-color: #ede7f6;
+    }
+
+    .save-week-btn {
+        padding: 8px 16px;
+        background-color: #9c27b0;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .save-week-btn:hover {
+        background-color: #6a1b9a;
+        transform: translateY(-1px);
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        font-size: 0.9rem;
+        color: #7b1fa2;
+        font-style: italic;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="header-container">
+    <img src="logo.png" alt="Logo Sekolah" class="header-logo left-logo">
+    <h1>Dashboard Penolong Kanan Kokurikulum</h1>
+    <img src="erph.png" alt="Logo eRPH" class="header-logo right-logo">
+</div>
+	<p class="welcome">Selamat Datang : <strong id="welcome-name"></strong></p>
+
+    <div class="action-bar">
+        <div></div>
+        <a href="login.html" class="logout-link" onclick="localStorage.removeItem('loggedInUser'); alert('Anda telah logout.');">Logout</a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <!-- Kolom Kiri: Jumlah Penghantaran RPH Mengikut Guru -->
+    <div class="left-col">
+        <div class="table-container">
+            <h3>JUMLAH RPH MENGIKUT GURU</h3>
+            <table id="rphCountTable">
+                <thead>
+                    <tr>
+                        <th>BIL</th>
+                        <th>NAMA GURU</th>
+                        <th>JUMLAH RPH</th>
+                    </tr>
+                </thead>
+                <tbody id="rphCountBody">
+                    <tr><td colspan="3" style="text-align:center;">Memuatkan data...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Kolom Kanan: RPH Untuk Semakan -->
+    <div class="right-col">
+        <div class="table-container">
+            <h3>RPH UNTUK SEMAKAN</h3>
+            <div id="rphWeeksContainer" style="padding: 15px;">
+                <p style="text-align: center; color: #888;">Memuatkan data RPH...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    Hak Cipta Terpelihara : Bayu Utara 2025
+</footer>
+
+<script>
+    // ========================
+    // UTILITIES
+    // ========================
+    function parseDate(dateStr) {
+        const [y, m, d] = dateStr.split('-').map(Number);
+        return new Date(y, m - 1, d);
+    }
+
+    function getDayIndex(date) {
+        const day = date.getDay();
+        return day === 0 ? 7 : day;
+    }
+
+    function getWeekRange(date) {
+        const day = date.getDay();
+        const diffToMonday = day === 0 ? -6 : 1 - day;
+        const diffToFriday = day === 0 ? -2 : 5 - day;
+
+        const monday = new Date(date);
+        monday.setDate(date.getDate() + diffToMonday);
+
+        const friday = new Date(date);
+        friday.setDate(date.getDate() + diffToFriday);
+
+        const format = d => {
+            const dd = d.getDate();
+            const mm = d.getMonth() + 1;
+            const yyyy = d.getFullYear();
+            return `${dd}/${mm}/${yyyy}`;
+        };
+
+        return `${format(monday)} - ${format(friday)}`;
+    }
+
+    // ========================
+    // DATA GLOBAL
+    // ========================
+    let allRphData = [];
+    let takwimData = [];
+
+    // ========================
+    // DAPATKAN MINGGU SEKOLAH MENGIKUT TAKWIM.JSON
+    // ========================
+    function getSchoolWeek(dateStr) {
+        const entry = takwimData.find(item => item.date === dateStr);
+        return entry ? entry.week : null;
+    }
+
+    function getSchoolWeekFromDate(dateObj) {
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        const dateStr = `${y}-${m}-${d}`;
+        return getSchoolWeek(dateStr);
+    }
+
+    // ========================
+    // MUAT DATA RPH & TAKWIM
+    // ========================
+    async function loadRphData() {
+        try {
+            const rphRes = await fetch('/public/rph_admin.json');
+            allRphData = rphRes.ok ? await rphRes.json() : [];
+            if (!Array.isArray(allRphData)) allRphData = [];
+
+            const takwimRes = await fetch('/public/takwim.json');
+            takwimData = takwimRes.ok ? await takwimRes.json() : [];
+
+            renderRphCountTable();
+            renderRphSemakanTable();
+        } catch (error) {
+            console.error('Gagal muat data RPH atau takwim:', error);
+            document.getElementById('rphCountBody').innerHTML = 
+                `<tr><td colspan="3" style="text-align:center; color:red;">Ralat: ${error.message}</td></tr>`;
+            document.getElementById('rphWeeksContainer').innerHTML = 
+                `<p style="text-align:center; color:red;">Gagal muat data RPH.</p>`;
+        }
+    }
+
+    // ========================
+    // RENDER JADUAL JUMLAH RPH
+    // ========================
+    function renderRphCountTable() {
+        const tbody = document.getElementById('rphCountBody');
+        const guruCount = {};
+
+        allRphData.forEach(rph => {
+            if (rph.guru) {
+                guruCount[rph.guru] = (guruCount[rph.guru] || 0) + 1;
+            }
+        });
+
+        const sortedGuru = Object.entries(guruCount)
+            .sort((a, b) => b[1] - a[1]);
+
+        if (sortedGuru.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Tiada data RPH.</td></tr>`;
+            return;
+        }
+
+        let html = '';
+        sortedGuru.forEach(([guru, count], index) => {
+            html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${guru}</td>
+                    <td>${count}</td>
+                </tr>`;
+        });
+
+        tbody.innerHTML = html;
+    }
+
+    // ========================
+    // RENDER RPH UNTUK SEMAKAN
+    // ========================
+    function renderRphSemakanTable(filterGuru = null) {
+        const container = document.getElementById('rphWeeksContainer');
+
+        const guruSet = new Set(allRphData.map(r => r.guru).filter(Boolean));
+        const allGuruList = Array.from(guruSet).sort();
+
+        let options = '<option value="">-- Paparkan Semua Guru --</option>';
+        allGuruList.forEach(name => {
+            options += `<option value="${name}">${name}</option>`;
+        });
+
+        container.innerHTML = `
+            <div style="margin-bottom:15px; text-align:center;">
+                <label><strong>Buat Pilihan Guru</strong></label><br>
+                <select id="guruFilter" style="padding:8px; font-size:0.7rem; margin-top:8px; min-width:250px;">
+                    ${options}
+                </select>
+            </div>
+            <div id="filteredRphTable">
+                <p style="text-align:center; color:#888;">Memuatkan RPH mingguan lengkap...</p>
+            </div>
+        `;
+
+        document.getElementById('guruFilter').addEventListener('change', (e) => {
+            displayAllCompleteRph(e.target.value || null);
+        });
+
+        displayAllCompleteRph(null);
+    }
+
+    // ========================
+    // PAPARKAN RPH MINGGUAN LENGKAP
+    // ========================
+    async function displayAllCompleteRph(filterGuru = null) {
+        const tableContainer = document.getElementById('filteredRphTable');
+        tableContainer.innerHTML = '<p style="text-align:center;">Memproses data RPH mingguan lengkap...</p>';
+
+        try {
+            let rphList = filterGuru 
+                ? allRphData.filter(r => r.guru === filterGuru)
+                : allRphData;
+
+            if (rphList.length === 0) {
+                tableContainer.innerHTML = `<p style="text-align:center; color:#888;">Tiada data RPH${filterGuru ? ` untuk ${filterGuru}` : ''}.</p>`;
+                return;
+            }
+
+            const weeksMap = {};
+
+            rphList.forEach(rph => {
+                if (!rph.guru || !rph.tarikh) return;
+                const date = parseDate(rph.tarikh);
+                const dayIndex = getDayIndex(date);
+                if (dayIndex < 1 || dayIndex > 5) return;
+
+                const weekNum = getSchoolWeekFromDate(date);
+                if (weekNum === null) return;
+
+                const year = date.getFullYear();
+                const key = `${rph.guru}|${year}-W${weekNum}`;
+
+                if (!weeksMap[key]) {
+                    weeksMap[key] = {
+                        guru: rph.guru,
+                        year,
+                        weekNum,
+                        dates: [],
+                        refleksiList: [],
+                        tarikhRange: getWeekRange(date)
+                    };
+                }
+                weeksMap[key].dates.push(rph.tarikh);
+                if (rph.refleksi) weeksMap[key].refleksiList.push(rph.refleksi);
+            });
+
+            const completeWeeks = Object.values(weeksMap)
+                .filter(w => w.dates.length >= 5)
+                .sort((a, b) => {
+                    if (a.year !== b.year) return a.year - b.year;
+                    if (a.weekNum !== b.weekNum) return a.weekNum - b.weekNum;
+                    return a.guru.localeCompare(b.guru);
+                });
+
+            if (completeWeeks.length === 0) {
+                tableContainer.innerHTML = `<p style="text-align:center; color:#888;">Tiada minggu lengkap${filterGuru ? ` untuk ${filterGuru}` : ''}.</p>`;
+                return;
+            }
+
+            let html = `
+                <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+                    <thead>
+                        <tr style="background:#005588; color:white;">
+                            <th>Tarikh (Isnin–Jumaat)</th>
+                            <th>Guru</th>
+                            <th>Minggu</th>
+                            <th>Refleksi Ringkas</th>
+                            <th>Disemak Oleh</th>
+                            <th>Komen Mingguan</th>
+                            <th>Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+            for (const week of completeWeeks) {
+                let feedback = { comment: '', reviewedBy: '' };
+                try {
+                    const fbRes = await fetch(`/weekly-feedback?year=${week.year}&week=${week.weekNum}&guru=${encodeURIComponent(week.guru)}`);
+                    if (fbRes.ok) feedback = await fbRes.json();
+                } catch (err) {
+                    console.warn('Gagal muat komen untuk', week.guru, week.weekNum);
+                }
+
+                const refleksiRingkas = week.refleksiList.length > 0 
+                    ? week.refleksiList[0].substring(0, 50) + (week.refleksiList[0].length > 50 ? '...' : '')
+                    : 'Tiada refleksi';
+
+                const reviewedByText = feedback.reviewedBy 
+                    ? `Disemak Oleh: ${feedback.reviewedBy}`
+                    : 'Menunggu Semakan';
+
+                html += `
+    <tr>
+        <td style="cursor:pointer; text-decoration:underline; color:#005588;" 
+            onclick="showRphDetailPopup('${week.tarikhRange}', '${week.guru.replace(/'/g, "\\'")}');">
+            ${week.tarikhRange}
+        </td>
+        <td>${week.guru}</td>
+        <td>${week.weekNum}</td>
+        <td title="${week.refleksiList.join('\n\n')}">${refleksiRingkas}</td>
+        <td><span class="reviewed-by">${reviewedByText}</span></td>
+        <td>
+            <textarea class="week-comment" 
+                      data-year="${week.year}" 
+                      data-week="${week.weekNum}" 
+                      data-guru="${week.guru}" 
+                      rows="2" 
+                      style="width:100%; font-size:0.85rem;">${feedback.comment || ''}</textarea>
+        </td>
+        <td>
+            <button class="save-week-btn" 
+                    data-year="${week.year}" 
+                    data-week="${week.weekNum}" 
+                    data-guru="${week.guru}">
+                Simpan
+            </button>
+        </td>
+    </tr>`;
+            }
+
+            html += `</tbody></table>`;
+            tableContainer.innerHTML = html;
+
+            // Event listener untuk butang simpan
+            document.querySelectorAll('.save-week-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const year = btn.dataset.year;
+                    const week = btn.dataset.week;
+                    const guru = btn.dataset.guru;
+                    const commentEl = document.querySelector(`.week-comment[data-year="${year}"][data-week="${week}"][data-guru="${guru}"]`);
+                    if (!commentEl) return;
+
+                    const comment = commentEl.value.trim();
+                    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+                    const reviewerName = loggedInUser ? loggedInUser.name : 'Guru Besar';
+
+                    const success = await saveWeeklyFeedback(year, week, guru, comment, reviewerName);
+                    if (success) {
+                        const reviewedByEl = btn.closest('tr').querySelector('.reviewed-by');
+                        if (reviewedByEl) {
+                            reviewedByEl.textContent = `Disemak Oleh: ${reviewerName}`;
+                        }
+                        btn.textContent = '✓';
+                        setTimeout(() => btn.textContent = 'Simpan', 1000);
+                    }
+                });
+            });
+
+        } catch (error) {
+            console.error('Ralat memaparkan RPH:', error);
+            tableContainer.innerHTML = `<p style="text-align:center; color:red;">Ralat: ${error.message}</p>`;
+        }
+    }
+
+    // ========================
+    // POPUP RPH DETAIL
+    // ========================
+    function showRphDetailPopup(dateRange, guru) {
+        const parts = dateRange.split(' - ');
+        if (parts.length !== 2) {
+            alert('Format tarikh tidak sah.');
+            return;
+        }
+
+        const [startStr, endStr] = parts;
+        const parseDMY = (str) => {
+            const [d, m, y] = str.split('/').map(Number);
+            return new Date(y, m - 1, d);
+        };
+
+        const monday = parseDMY(startStr);
+        const friday = parseDMY(endStr);
+
+        const weekdays = [];
+        const current = new Date(monday);
+        while (current <= friday) {
+            const day = current.getDay();
+            if (day >= 1 && day <= 5) {
+                const y = current.getFullYear();
+                const m = String(current.getMonth() + 1).padStart(2, '0');
+                const d = String(current.getDate()).padStart(2, '0');
+                weekdays.push(`${y}-${m}-${d}`);
+            }
+            current.setDate(current.getDate() + 1);
+        }
+
+        const rphInWeek = allRphData.filter(r => 
+            r.guru === guru && weekdays.includes(r.tarikh)
+        );
+
+        const dayNames = ['Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat'];
+        const rphByDate = {};
+        weekdays.forEach((date, i) => {
+            const rph = rphInWeek.find(r => r.tarikh === date);
+            rphByDate[date] = {
+                dayName: dayNames[i],
+                date: date,
+                data: rph || null
+            };
+        });
+
+        let popupContent = `
+            <div style="background:white; padding:20px; border-radius:8px; max-height:85vh; overflow:auto; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width:90%; max-width:1000px;">
+                <h3 style="margin-top:0; color:#005588; text-align:center;">RPH Mingguan untuk ${guru}</h3>
+                <h4 style="text-align:center; margin-bottom:15px;">${dateRange}</h4>
+                <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+                    <thead>
+                        <tr style="background:#005588; color:white;">
+                            <th>Hari</th>
+                            <th>Tarikh</th>
+                            <th>Kelas</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Objektif</th>
+                            <th>Refleksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+        weekdays.forEach(date => {
+            const entry = rphByDate[date];
+            const rph = entry.data;
+
+            const kelas = rph?.kelas || '—';
+            const matapelajaran = rph?.matapelajaran || '—';
+            const objektif = rph?.objectives || '—';
+            const refleksi = rph?.refleksi || '—';
+            const displayDate = date.split('-').reverse().join('/');
+
+            popupContent += `
+                <tr style="border-bottom:1px solid #eee;">
+                    <td>${entry.dayName}</td>
+                    <td>${displayDate}</td>
+                    <td>${kelas}</td>
+                    <td>${matapelajaran}</td>
+                    <td>${objektif}</td>
+                    <td>${refleksi}</td>
+                </tr>`;
+        });
+
+        popupContent += `
+                </tbody>
+            </table>
+            <div style="text-align:center; margin-top:20px;">
+                <button id="close-popup" style="padding:8px 20px; background:#d32f2f; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">
+                    Tutup
+                </button>
+            </div>
+        </div>`;
+
+        let popup = document.getElementById('rph-popup');
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.id = 'rph-popup';
+            popup.style.position = 'fixed';
+            popup.style.top = '0';
+            popup.style.left = '0';
+            popup.style.width = '100%';
+            popup.style.height = '100%';
+            popup.style.backgroundColor = 'rgba(0,0,0,0.6)';
+            popup.style.display = 'flex';
+            popup.style.justifyContent = 'center';
+            popup.style.alignItems = 'center';
+            popup.style.zIndex = '10000';
+            document.body.appendChild(popup);
+        }
+
+        popup.innerHTML = popupContent;
+
+        document.getElementById('close-popup').onclick = () => {
+            document.body.removeChild(popup);
+        };
+
+        popup.onclick = (e) => {
+            if (e.target === popup) {
+                document.body.removeChild(popup);
+            }
+        };
+    }
+
+    // ========================
+    // SIMPAN KOMEN MINGGUAN
+    // ========================
+    async function saveWeeklyFeedback(year, weekNumber, guru, comment, reviewedBy) {
+        try {
+            const response = await fetch('/save-weekly-feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ year, weekNumber, guru, comment, reviewedBy })
+            });
+            if (response.ok) {
+                return true;
+            } else {
+                const err = await response.json();
+                alert('❌ Gagal simpan: ' + (err.error || 'Ralat tidak diketahui.'));
+                return false;
+            }
+        } catch (error) {
+            console.error('Error simpan komen mingguan:', error);
+            alert('❌ Ralat rangkaian.');
+            return false;
+        }
+    }
+
+    // ========================
+    // INISIALISASI
+    // ========================
+    document.addEventListener('DOMContentLoaded', () => {
+        const user = JSON.parse(localStorage.getItem('loggedInUser'));
+        if (!user || user.role !== 'penolong_kanan_kokurikulum') {
+            alert('Akses ditolak. Anda bukan Guru Besar.');
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('welcome-name').textContent = user.name;
+            loadRphData();
+        }
+    });
+</script>
+</body>
+</html>

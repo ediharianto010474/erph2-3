@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #66ccff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 3rem;
+            margin-bottom: 1px;
+            width: 100%;
+        }
+
+.btn-complete {
+    background-color: #27ae60 !important;
+}
+
+.btn-complete:hover {
+    background-color: #219653 !important;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+}
+
+.header-logo {
+    height: 100px; /* Sesuaikan saiz mengikut keperluan */
+    width: auto;
+    object-fit: contain;
+}
+
+.left-logo {
+    margin-right: 20px;
+}
+
+.right-logo {
+    margin-left: 20px;
+}
+
+/* Pastikan tajuk berada di tengah */
+.header-container h1 {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+
+        .welcome {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            font-weight: bold;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 50px;
+            margin-bottom: 20px;
+	}
+
+	.left-col
+	    flex: 1;
+	    gap: 20px;
+	    box-sizing: border-box;
+	    margin-right: 10px;
+	}
+
+	.right-col {
+    	    flex: 1;
+    	    box-sizing: border-box;
+	    gap: 20px;
+	    box-sizing: border-box;
+	    margin-right: 10px;
+}
+
+/* Warna Jadual Mengikut Mata Pelajaran */
+.subject-BM  { background-color: #e74c3c !important; color: white; }
+.subject-BI  { background-color: #3498db !important; color: white; }
+.subject-MT  { background-color: #27ae60 !important; color: white; }
+.subject-SN  { background-color: #e67e22 !important; color: white; }
+.subject-PAI { background-color: #8e5b3a !important; color: white; }
+.subject-BA  { background-color: #9b59b6 !important; color: white; }
+.subject-PJ  { background-color: #f1c40f !important; color: black; }
+.subject-PK  { background-color: #2ecc71 !important; color: black; }
+.subject-PSV { background-color: #e84393 !important; color: white; }
+.subject-MZ  { background-color: #16a085 !important; color: white; }
+.subject-SEJ { background-color: #6d4c41 !important; color: white; }
+.subject-RBT { background-color: #7f8c8d !important; color: white; }
+
+/* Untuk sel yang tiada mata pelajaran */
+.subject-empty { background-color: #ecf0f1; color: #7f8c8d; }
+
+        /* Jadual Hari/Masa */
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .timetable th,
+        .timetable td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .timetable th {
+            background-color: #005588;
+            color: white;
+            font-weight: bold;
+        }
+
+        .timetable tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .timetable tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Jadual RPH */
+        .rph-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 0.9rem
+        }
+
+        .rph-table th,
+        .rph-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.9rem
+        }
+
+        .rph-table th {
+            background-color: #005588;
+            color: white;
+            font-weight: bold;
+        }
+
+        .rph-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .rph-table tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Butang */
+        .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            font-size: 0.6rem;
+        }
+
+        .btn-primary {
+            background-color: #005588;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #004466;
+        }
+
+        .btn-secondary {
+            background-color: #0099cc;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0077aa;
+        }
+
+        /* Link Logout */
+        .logout-link {
+            color: red;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .logout-link:hover {
+            background-color: #ffe6e6;
+            text-decoration: underline;
+        }
+
+        /* Input Date */
+        .date-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            background-color: white;
+            color: #333;
+            width: 120px;
+            height: 36px;
+            box-sizing: border-box;
+        }
+
+        /* RPH Form Container (scrollable) */
+        .rph-container {
+            width: 100%;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            overflow-y: auto;
+            max-height: 600px;
+        }
+
+        /* RPH Template (individual) */
+        .rph-template {
+            background-color: #9c008d;
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            font-size: 0.9rem
+        }
+
+        .rph-template h3 {
+            text-align: center;
+            margin-top: 0;
+            background-color: #8b0075;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem
+        }
+
+        .rph-template table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .rph-template th,
+        .rph-template td {
+            border: 1px solid #fff;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .rph-template th {
+            background-color: #8b0075;
+            font-weight: bold;
+        }
+
+        .rph-template input[type="text"],
+        .rph-template textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .rph-template textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        /* Notifikasi */
+        .notification {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #ffeaa7;
+        }
+
+        /* Nota */
+        .note {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 10px;
+            text-align: justify;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+        }
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+    margin-bottom: 20px; /* 👈 INI YANG TAMBAH JARAK KE BAWAH */
+    flex-wrap: wrap;
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- TAJUK -->
+            <div class="header-container">
+    <img src="logo.png" alt="Logo Sekolah" class="header-logo left-logo">
+    <h1>Dashboard User</h1>
+    <img src="erph.png" alt="Logo eRPH" class="header-logo right-logo">
+</div>
+
+        <!-- Action Bar: Selamat Datang & Logout -->
+        <div class="action-bar">
+            <div>
+                <p class="welcome">Selamat Datang : <strong>{ nama guru }</strong></p>
+            </div>
+            <a href="login.html" class="logout-link" onclick="localStorage.removeItem('loggedInUser'); alert('Anda telah logout.');">Logout</a>
+        </div>
+
+        <!-- Layout Utama -->
+        <div class="main-layout">
+            <!-- Kolom Kiri: Jadual Hari/Masa -->
+            <div class="left-col">
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Hari/Masa</th>
+                            <th>710 - 740</th>
+                            <th>740 - 810</th>
+                            <th>810 - 840</th>
+                            <th>840 - 910</th>
+                            <th>910 - 940</th>
+                            <th>940 - 1000</th>
+                            <th>1000 - 1030</th>
+                            <th>1030 - 1100</th>
+                            <th>1100 - 1130</th>
+                            <th>1130 - 1200</th>
+                            <th>1200 - 1230</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ISNIN</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td>REHAT</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>SELASA</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td>REHAT</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>RABU</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td>REHAT</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>KHAMIS</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td>REHAT</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>JUMAAT</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td>REHAT</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Butang di bawah jadual -->
+                <div class="action-buttons">
+    <input type="date" id="rphDate" class="date-input">
+    <button class="btn btn-secondary" onclick="pilihTarikh()">TARIKH RPH</button>
+    <button class="btn btn-secondary" onclick="janaRph()">JANA RPH</button>
+    <button class="btn btn-primary" onclick="saveJadualWaktu()">SIMPAN</button>
+</div>
+
+                <!-- Container untuk RPH Templates -->
+        <div class="rph-container" id="rphContainer">
+        </div>
+    </div>
+
+            <!-- Kolom Kanan: Jadual RPH -->
+            <div class="right-col">
+                <table class="rph-table">
+                    <thead>
+                        <tr>
+                            <th>TARIKH</th>
+                            <th>MATAPELAJARAN</th>
+                            <th>KELAS</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rphTableBody">
+                        <!-- Akan diisi secara dinamik -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    <script>
+// Mapping subjek singkatan → nama penuh
+const subjectMap = {
+  "BI": "ENGLISH",
+  "BM": "BAHASA MELAYU",
+  "MT": "MATHEMATICS",
+  "SN": "SCIENCE",
+  "PAI": "PENDIDIKAN AGAMA ISLAM",
+  "SEJ": "SEJARAH",
+  "PJ": "PENDIDIKAN JASMANI",
+  "PSV": "PENDIDIKAN SENI VISUAL",
+  "RBT": "REKA BENTUK & TEKNOLOGI",
+  "PK": "PENDIDIKAN KESIHATAN",
+  "MZ": "PENDIDIKAN MUZIK",
+  "BA": "BAHASA ARAB",
+  "PM": "PENDIDIKAN MORAL",
+  // tambah lagi ikut jadual cikgu
+};
+        // ========================
+        // INISIALISASI
+        // ========================
+        
+        // Papar nama user
+        const user = JSON.parse(localStorage.getItem('loggedInUser'));
+        if (user) {
+            document.querySelector('.welcome').innerHTML = `Selamat Datang : <strong>${user.name}</strong>`;
+            loadJadualWaktu();
+            updateRphTable(); // Panggil fungsi baru untuk muat data RPH selepas login
+        } else {
+            alert('Sila login terlebih dahulu.');
+            window.location.href = 'login.html';
+        }
+
+// ========================
+// FUNGSI: Muat Jadual Waktu dari JSON (dengan warna mengikut mata pelajaran)
+// ========================
+async function loadJadualWaktu() {
+    if (!user) return;
+
+    // Fungsi pembantu: dapatkan kelas CSS berdasarkan kod mata pelajaran
+    function getSubjectClass(subjectCode) {
+        const validSubjects = ['BM','BI','MT','SN','PAI','BA','PJ','PK','PSV','MZ','SEJ','RBT'];
+        return validSubjects.includes(subjectCode) ? `subject-${subjectCode}` : 'subject-other';
+    }
+
+    try {
+        const response = await fetch('/public/jadual_waktu.json');
+        if (!response.ok) throw new Error('Fail jadual_waktu.json tidak wujud.');
+
+        const allData = await response.json();
+        const jadualData = allData[user.name] || [];
+
+        const rows = document.querySelectorAll('.timetable tbody tr');
+        if (rows.length === 0) {
+            console.warn('Jadual waktu tidak dijumpai dalam DOM.');
+            return;
+        }
+
+        // Kosongkan semua sel (kecuali "REHAT")
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            for (let i = 1; i < cells.length; i++) {
+                const currentText = cells[i].textContent.trim();
+                if (currentText === "REHAT") {
+                    // Kekalkan "REHAT" dengan kelas khas
+                    cells[i].className = 'subject-rehat';
+                    cells[i].innerHTML = '<div style="font-weight:bold;">REHAT</div><div></div>';
+                } else {
+                    // Kosongkan sel biasa
+                    cells[i].textContent = "";
+                    cells[i].className = '';
+                }
+            }
+        });
+
+        // Tetapkan data jadual
+        const waktuHeaders = [
+            "710 - 740",
+            "740 - 810",
+            "810 - 840",
+            "840 - 910",
+            "910 - 940",
+            "940 - 1000",
+            "1000 - 1030",
+            "1030 - 1100",
+            "1100 - 1130",
+            "1130 - 1200",
+            "1200 - 1230"
+        ];
+
+        jadualData.forEach(item => {
+            // Cari baris mengikut hari
+            const row = Array.from(rows).find(r => 
+                r.querySelector('td:first-child')?.textContent.trim() === item.hari
+            );
+            if (!row) {
+                console.warn(`Hari tidak dijumpai dalam jadual: ${item.hari}`);
+                return;
+            }
+
+            // Cari indeks lajur berdasarkan masa
+            const colIndex = waktuHeaders.indexOf(item.masa) + 1; // +1 kerana lajur pertama = hari
+            if (colIndex <= 0 || colIndex >= row.cells.length) {
+                console.warn(`Masa tidak sah atau di luar julat: ${item.masa}`);
+                return;
+            }
+
+            const cell = row.cells[colIndex];
+            if (!cell) return;
+
+            // Elak tindih atas "REHAT"
+            if (cell.textContent.trim() === "REHAT") return;
+
+            // Tetapkan kelas warna dan kandungan
+            cell.className = 'timetable-cell'; // kelas asas
+            cell.classList.add(getSubjectClass(item.matapelajaran));
+
+            cell.innerHTML = `
+                <div style="font-weight:bold; font-size:0.9em;">${item.matapelajaran}</div>
+                <div style="font-size:0.85em;">${item.kelas}</div>
+            `;
+        });
+
+    } catch (error) {
+        console.warn('Tiada data jadual waktu atau fail belum wujud:', error.message);
+        // Opsional: paparkan mesej kepada pengguna
+        // document.getElementById('jadualMessage')?.textContent = 'Tiada jadual waktu.';
+    }
+}
+
+// ========================
+// FUNGSI: Simpan Jadual Waktu ke Server
+// ========================
+async function saveJadualWaktu() {
+    if (!user) {
+        alert('Sila login terlebih dahulu.');
+        return;
+    }
+
+    const jadualData = [];
+    const rows = document.querySelectorAll('.timetable tbody tr');
+    const waktuHeaders = [
+        "710 - 740",
+        "740 - 810",
+        "810 - 840",
+        "840 - 910",
+        "910 - 940",
+        "940 - 1000",
+        "1000 - 1030",
+        "1030 - 1100",
+        "1100 - 1130",
+        "1130 - 1200",
+        "1200 - 1230"
+    ];
+
+    rows.forEach(row => {
+        const hariCell = row.querySelector('td:first-child');
+        if (!hariCell) return;
+        const hari = hariCell.textContent.trim();
+
+        // Lewati jika hari tidak sah
+        if (!['ISNIN', 'SELASA', 'RABU', 'KHAMIS', 'JUMAAT'].includes(hari)) return;
+
+        const cells = row.querySelectorAll('td:not(:first-child)');
+        cells.forEach((cell, index) => {
+            // Jangan simpan jika "REHAT"
+            if (cell.textContent.trim() === "REHAT") return;
+
+            // Ekstrak kandungan dari HTML
+            const divs = cell.querySelectorAll('div');
+            let matapelajaran = '';
+            let kelas = '';
+
+            if (divs.length >= 2) {
+                matapelajaran = divs[0].textContent.trim();
+                kelas = divs[1].textContent.trim();
+            } else if (cell.textContent.trim() !== '') {
+                // Jika pengguna taip secara manual (tanpa format dua baris)
+                const text = cell.textContent.trim();
+                // Cuba asingkan: jika ada ruang, anggap perkataan pertama = subjek
+                const parts = text.split(' ');
+                matapelajaran = parts[0];
+                kelas = parts.slice(1).join(' ') || '';
+            }
+
+            // Simpan hanya jika ada mata pelajaran
+            if (matapelajaran && matapelajaran !== '') {
+                jadualData.push({
+                    hari: hari,
+                    masa: waktuHeaders[index],
+                    matapelajaran: matapelajaran,
+                    kelas: kelas
+                });
+            }
+        });
+    });
+
+    // Hantar ke backend
+    try {
+        const response = await fetch('/save-jadual-waktu', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nama_guru: user.name,
+                jadual: jadualData
+            })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            alert('✅ Jadual waktu berjaya disimpan!');
+            // Opsional: muat semula jadual untuk pastikan konsisten
+            loadJadualWaktu();
+        } else {
+            alert('❌ Gagal menyimpan jadual: ' + (result.message || 'Ralat tidak diketahui.'));
+        }
+    } catch (error) {
+        console.error('Ralat menyimpan jadual:', error);
+        alert('⚠️ Ralat sambungan. Sila pastikan server backend aktif.');
+    }
+}
+        // ========================
+        // FUNGSI: Pilih Tarikh
+        // ========================
+        function pilihTarikh() {
+            const input = document.getElementById('rphDate');
+            if (input) {
+                input.focus();
+                if (input.showPicker) {
+                    input.showPicker();
+                }
+            } else {
+                console.error('Input #rphDate tidak dijumpai!');
+                alert('Ralat: Input tarikh tidak dijumpai. Sila muat semula halaman.');
+            }
+        }
+
+        // ========================
+        // FUNGSI: Extract Tahun dari Kelas
+        // ========================
+        function extractTahunFromKelas(kelas) {
+            const match = kelas.match(/\d+/); // Cari digit pertama
+            return match ? match[0] : null;
+        }
+
+        // ========================
+        // FUNGSI: Gabung Slot Masa Bersebelahan
+        // ========================
+        function groupSlotsByClass(kelasList) {
+            if (kelasList.length === 0) return [];
+
+            const grouped = {};
+            const waktuHeaders = [
+                "710 - 740",
+                "740 - 810",
+                "810 - 840",
+                "840 - 910",
+                "910 - 940",
+                "940 - 1000",
+                "1000 - 1030",
+                "1030 - 1100",
+                "1100 - 1130",
+                "1130 - 1200",
+                "1200 - 1230"
+            ];
+
+            // Kumpul mengikut kelas + matapelajaran
+            kelasList.forEach(item => {
+                const key = `${item.matapelajaran}-${item.kelas}`;
+                if (!grouped[key]) {
+                    grouped[key] = {
+                        matapelajaran: item.matapelajaran,
+                        kelas: item.kelas,
+                        masaList: []
+                    };
+                }
+                grouped[key].masaList.push(item.masa);
+            });
+
+            // Gabungkan masa bersebelahan dalam setiap kumpulan
+            const result = [];
+            for (let key in grouped) {
+                const group = grouped[key];
+                const sortedMasa = group.masaList.sort((a, b) => {
+                    return waktuHeaders.indexOf(a) - waktuHeaders.indexOf(b);
+                });
+
+                const mergedMasa = [];
+                let currentStart = null;
+                let currentEnd = null;
+
+                for (let i = 0; i < sortedMasa.length; i++) {
+                    const [start, end] = sortedMasa[i].split(' - ');
+                    if (currentStart === null) {
+                        currentStart = start;
+                        currentEnd = end;
+                    } else {
+                        const prevIndex = waktuHeaders.indexOf(`${currentStart} - ${currentEnd}`);
+                        const currIndex = waktuHeaders.indexOf(sortedMasa[i]);
+                        if (currIndex === prevIndex + 1) {
+                            // Bersebelahan — gabung
+                            currentEnd = end;
+                        } else {
+                            // Tidak bersebelahan — simpan yang sedia ada
+                            mergedMasa.push(`${currentStart} - ${currentEnd}`);
+                            currentStart = start;
+                            currentEnd = end;
+                        }
+                    }
+                }
+                if (currentStart !== null) {
+                    mergedMasa.push(`${currentStart} - ${currentEnd}`);
+                }
+
+                // Gabungkan semua masa jadi string
+                const masaGabungan = mergedMasa.join(', ');
+
+                result.push({
+                    matapelajaran: group.matapelajaran,
+                    kelas: group.kelas,
+                    masa: masaGabungan
+                });
+            }
+
+            return result;
+        }
+
+        // ========================
+        // FUNGSI: Dapatkan Nombor Minggu
+        // ========================
+        function getWeekNumber(date) {
+            const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            const dayNum = d.getUTCDay() || 7;
+            d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+            const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        }
+
+        // ========================
+        // FUNGSI: Jana RPH (DIPERBAIKI)
+        // ========================
+async function janaRph() {
+    const selectedDate = document.getElementById('rphDate').value;
+    if (!selectedDate) {
+        alert('Sila pilih tarikh dahulu.');
+        return;
+    }
+
+    localStorage.setItem(`lastRphDate_${user.name}`, selectedDate);
+
+    if (!user) {
+        alert('Sila login semula.');
+        return;
+    }
+
+    // Dapatkan hari dari tarikh
+    const days = ['AHAD', 'ISNIN', 'SELASA', 'RABU', 'KHAMIS', 'JUMAAT', 'SABTU'];
+    const dateObj = new Date(selectedDate);
+    const hari = days[dateObj.getDay()];
+
+    console.log('📅 Tarikh dipilih:', selectedDate);
+    console.log('📆 Hari:', hari);
+
+    // Muat jadual waktu
+    let jadualData = [];
+    try {
+        const response = await fetch('/public/jadual_waktu.json');
+        if (response.ok) {
+            const allData = await response.json();
+            jadualData = allData[user.name] || [];
+            console.log('📚 Jadual waktu dimuat:', jadualData);
+        } else {
+            console.warn('⚠️ Fail jadual_waktu.json tidak wujud atau kosong.');
+            document.getElementById('rphContainer').innerHTML = `
+                <div class="notification">
+                    ⚠️ Fail jadual_waktu.json tidak wujud. Sila simpan jadual waktu terlebih dahulu.
+                </div>
+            `;
+            return;
+        }
+    } catch (error) {
+        console.error('❌ Ralat memuat jadual waktu:', error);
+        document.getElementById('rphContainer').innerHTML = `
+            <div class="notification">
+                ❌ Ralat: Gagal memuat jadual waktu. Sila cuba lagi.
+            </div>
+        `;
+        return;
+    }
+
+    // Cari kelas untuk hari ini
+    const kelasList = [];
+    jadualData.forEach(item => {
+        if (item.hari === hari) {
+            kelasList.push({
+                matapelajaran: item.matapelajaran,
+                kelas: item.kelas,
+                masa: item.masa
+            });
+        }
+    });
+
+    console.log('📋 Kelas dijumpai:', kelasList);
+
+    // Gabung slot masa bersebelahan yang sama kelas & matapelajaran
+    const groupedKelasList = groupSlotsByClass(kelasList);
+    console.log('🎯 Kelas digabung (by class):', groupedKelasList);
+
+    if (groupedKelasList.length === 0) {
+        document.getElementById('rphContainer').innerHTML = `
+            <div class="notification">
+                ⚠️ Tiada kelas dijadualkan untuk ${hari}, ${selectedDate}. Sila isi jadual waktu terlebih dahulu.
+            </div>
+        `;
+        return;
+    }
+
+    // Muat draft yang sedia ada untuk tarikh ini
+    let draftData = [];
+    try {
+        const response = await fetch('/public/rph_data.json');
+        if (response.ok) {
+            const allDrafts = await response.json();
+            if (allDrafts && allDrafts[user.name] && allDrafts[user.name][selectedDate]) {
+                draftData = allDrafts[user.name][selectedDate];
+                if (!Array.isArray(draftData)) {
+                    draftData = [];
+                }
+            }
+        }
+    } catch (error) {
+        console.warn('Tiada draft sedia ada:', error);
+        draftData = [];
+    }
+
+    console.log('💾 Draft untuk tarikh ini:', draftData);
+
+    // 👇 MUAT TAKWIM SEKOLAH SEKALI SAHAJA
+    let takwim = [];
+    try {
+        const takwimRes = await fetch('/public/takwim.json');
+        if (takwimRes.ok) {
+            takwim = await takwimRes.json();
+            if (!Array.isArray(takwim)) throw new Error("takwim.json bukan array");
+        } else {
+            throw new Error("takwim.json tidak dijumpai");
+        }
+    } catch (err) {
+        console.error("❌ Gagal memuat takwim.json:", err);
+        alert("Gagal memuat takwim persekolahan. Pastikan fail takwim.json wujud.");
+        return;
+    }
+
+// Fungsi: Dapatkan nombor minggu pengajaran berdasarkan tarikh
+function getTeachingBlockIndex(targetDateStr, takwimList) {
+    const entry = takwimList.find(item => item.date === targetDateStr);
+    return entry ? entry.week : null;
+}
+
+    // Jana template
+    let html = '';
+    for (let i = 0; i < groupedKelasList.length; i++) {
+        const { matapelajaran, kelas, masa } = groupedKelasList[i];
+        const draft = draftData.find(d => d.kelas === kelas && d.matapelajaran === matapelajaran);
+
+        if (draft) {
+            // ADA DRAF - GUNA DATA DRAF
+            console.log('📂 Menggunakan draf untuk:', kelas, matapelajaran);
+            const btnText = draft.refleksi ? 'SIMPAN' : 'SIMPAN DRAF';
+            const btnId = `saveBtn-${i}`;
+
+            html += `
+                <div class="rph-template" id="rph-${i}">
+                    <h3>RANCANGAN PENGAJARAN HARIAN</h3>
+                    <table>
+                        <tr><th>DATE</th><td><input type="text" value="${selectedDate}" readonly></td></tr>
+			<tr><th>CLASS/SUBJECT</th><td><input type="text" value="${kelas}/${subjectMap[matapelajaran] || matapelajaran}" readonly></td></tr>
+                        <tr><th>UNIT</th><td><input type="text" value="${draft.unit || ''}"></td></tr>
+                        <tr><th>SKILL</th><td><input type="text" value="${draft.skill || ''}"></td></tr>
+                        <tr><th>STANDARD</th><td><textarea style="height: 100px; resize: none;">${draft.standards || ''}</textarea></td></tr>
+                        <tr><th>OBJECTIVES</th><td><input type="text" value="${draft.objectives || ''}"></td></tr>
+                        <tr><th>ASSESSMENT</th><td><input type="text" value="${draft.assessment || ''}"></td></tr>
+                        <tr><th>TEACHING AIDS</th><td><input type="text" value="${draft.teaching_aids || ''}"></td></tr>
+                        <tr><th>REFLEKSI</th><td><textarea placeholder="Masukkan refleksi pengajaran">${draft.refleksi || ''}</textarea></td></tr>
+                    </table>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button id="${btnId}" class="btn btn-primary" onclick="simpanDraft(${i}, '${selectedDate}', '${kelas}', '${matapelajaran}')">${btnText}</button>
+                        <button class="btn btn-secondary" onclick="cetakRph(${i})">CETAK</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            // TIADA DRAF - JANA BARU DARI SP
+            console.log('🆕 Menjana template baru untuk:', kelas, matapelajaran);
+
+            const spFileMap = {
+                'BI': 'sp-bi.json',
+                'BM': 'sp-bm.json',
+                'MT': 'sp-mt.json',
+                'SN': 'sp-sn.json',
+                'PAI': 'sp-pai.json',
+                'BA': 'sp-ba.json',
+                'PJ': 'sp-pj.json',
+                'PK': 'sp-pk.json',
+                'PM': 'sp-pm.json',
+                'MZ': 'sp-mz.json',
+                'PSV': 'sp-psv.json',
+                'SJ': 'sp-sj.json',
+                'RBT': 'sp-rbt.json'
+            };
+
+            const spFile = spFileMap[matapelajaran] || `${matapelajaran.toLowerCase()}.json`;
+            let unitName = '';
+            let allStandards = [];
+            let fallbackItem = {
+                standards: '',
+                objectives: 'Tiada objektif',
+                assessment: 'Tiada penilaian',
+                teaching_aids: 'Tiada bahan bantu mengajar'
+            };
+
+            try {
+                console.log(`📂 Mencuba baca fail SP: ${spFile}`);
+                const spResponse = await fetch(`/public/${spFile}`);
+                if (!spResponse.ok) throw new Error(`Fail ${spFile} tidak dijumpai`);
+
+                const spData = await spResponse.json();
+                console.log(`✅ Fail ${spFile} berjaya dimuat`);
+
+                // Tentukan tahun
+                const kelasDigit = kelas.match(/\d+/)?.[0];
+                if (!kelasDigit) throw new Error('Tahun tidak dapat ditentukan');
+                const tahunKey = `TAHUN ${kelasDigit}`;
+                if (!spData[tahunKey]) throw new Error(`Tiada data untuk ${tahunKey}`);
+
+                // 👇 DAPATKAN BLOK BERDASARKAN TAKWIM
+                const blok = getTeachingBlockIndex(selectedDate, takwim);
+                if (blok === null) {
+                    throw new Error(`Tarikh ${selectedDate} di luar takwim pengajaran`);
+                }
+
+                // Dapatkan unit berdasarkan blok (dengan ulangan kitaran)
+const unitNames = Object.keys(spData[tahunKey]);
+if (unitNames.length === 0) {
+    throw new Error("Tiada unit dalam data SP untuk tahun ini");
+}
+
+const unitIndex = (blok - 1) % unitNames.length; // 0-based
+unitName = unitNames[unitIndex];
+console.log(`📚 Unit: ${unitName} (Blok ${blok}, Unit ke-${unitIndex + 1} secara kitaran)`);
+
+                // 👇 TANGANI KEDUA-DUA STRUKTUR: BM (objek) & MT (array)
+                const unitContent = spData[tahunKey][unitName];
+                if (Array.isArray(unitContent)) {
+                    // Struktur MT: unit terus array
+                    allStandards = unitContent;
+                } else if (typeof unitContent === 'object' && unitContent !== null) {
+                    // Struktur BM: unit adalah objek kemahiran
+                    for (const skill in unitContent) {
+                        if (Array.isArray(unitContent[skill])) {
+                            allStandards = allStandards.concat(unitContent[skill]);
+                        }
+                    }
+                } else {
+                    throw new Error("Format unit tidak dikenali");
+                }
+
+                if (allStandards.length === 0) {
+                    throw new Error("Tiada standard dalam unit ini");
+                }
+
+                // Gunakan item pertama sebagai fallback
+                fallbackItem = allStandards[0];
+
+                // Gabungkan semua standard untuk paparan
+                const standardsText = allStandards.map(s => s.standards).join('\n');
+
+                // Untuk BM, skill = nama kemahiran; untuk MT, skill = "Matematik"
+                let skillsText = '';
+                if (!Array.isArray(unitContent) && typeof unitContent === 'object') {
+                    skillsText = Object.keys(unitContent).join(', ');
+                } else {
+                    skillsText = matapelajaran; // atau "Operasi", dll. jika perlu
+                }
+
+                // Hasilkan HTML
+                const btnText = 'SIMPAN DRAF';
+                const btnId = `saveBtn-${i}`;
+
+                html += `
+                    <div class="rph-template" id="rph-${i}">
+                        <h3>RANCANGAN PENGAJARAN HARIAN</h3>
+                        <table>
+                            <tr><th>DATE</th><td><input type="text" value="${selectedDate}" readonly></td></tr>
+                            <th>CLASS/SUBJECT</th><td><input type="text" value="${kelas}/${subjectMap[matapelajaran] || matapelajaran}" readonly></td></tr>
+                            <tr><th>UNIT</th><td><input type="text" value="${unitName}"></td></tr>
+                            <tr><th>SKILL</th><td><input type="text" value="${skillsText}"></td></tr>
+                            <tr><th>STANDARD</th><td><textarea style="height: 100px; resize: none;">${standardsText}</textarea></td></tr>
+                            <tr><th>OBJECTIVES</th><td><input type="text" value="${fallbackItem.objectives}"></td></tr>
+                            <tr><th>ASSESSMENT</th><td><input type="text" value="${Array.isArray(fallbackItem.assessment) ? fallbackItem.assessment.join(', ') : fallbackItem.assessment}"></td></tr>
+                            <tr><th>TEACHING AIDS</th><td><input type="text" value="${Array.isArray(fallbackItem.aids) ? fallbackItem.aids.join(', ') : fallbackItem.aids || fallbackItem.teaching_aids}"></td></tr>
+                            <tr><th>REFLEKSI</th><td><textarea placeholder="Masukkan refleksi pengajaran"></textarea></td></tr>
+                        </table>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <button id="${btnId}" class="btn btn-primary" onclick="simpanDraft(${i}, '${selectedDate}', '${kelas}', '${matapelajaran}')">${btnText}</button>
+                            <button class="btn btn-secondary" onclick="cetakRph(${i})">CETAK</button>
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error(`❌ Ralat memuat data SP untuk ${matapelajaran}:`, error);
+                html += `
+                    <div class="notification">
+                        ❌ RPH tidak dapat dijana untuk ${matapelajaran} — ${error.message}
+                    </div>
+                `;
+            }
+        }
+    }
+
+    document.getElementById('rphContainer').innerHTML = html;
+    console.log('✅ Template RPH dijana');
+    updateRphTable();
+}
+
+// ========================
+// FUNGSI: Paparkan SEMUA RPH untuk SEMUA TARIKH
+// ========================
+async function updateRphTable() {
+    if (!user) return;
+    const tableBody = document.getElementById('rphTableBody');
+    if (!tableBody) {
+        console.error('❌ #rphTableBody tidak dijumpai!');
+        return;
+    }
+    tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Memuatkan data RPH...</td></tr>';
+    
+    try {
+        const response = await fetch('/public/rph_data.json');
+        if (!response.ok) throw new Error('Fail rph_data.json tidak wujud.');
+        const allData = await response.json();
+        
+        const userData = allData[user.name] || {};
+        const allRphEntries = [];
+
+        // Kumpulkan semua RPH dari semua tarikh
+        for (const tarikh in userData) {
+            const rphList = userData[tarikh];
+            if (Array.isArray(rphList)) {
+                rphList.forEach(item => {
+                    allRphEntries.push({ ...item, tarikh });
+                });
+            }
+        }
+
+        tableBody.innerHTML = '';
+        if (allRphEntries.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Tiada RPH disimpan.</td></tr>';
+            return;
+        }
+
+        // Susun mengikut tarikh (terbaru atas)
+        allRphEntries.sort((a, b) => new Date(b.tarikh) - new Date(a.tarikh));
+
+allRphEntries.forEach(entry => {
+    const isComplete = entry.refleksi && entry.refleksi.trim() !== '';
+    const btnText = isComplete ? 'LENGKAP' : 'EDIT';
+    const btnColor = isComplete ? '#27ae60' : '#005588';
+    const onClickAttr = `onclick="editRph('${entry.tarikh}', '${entry.kelas}', '${entry.matapelajaran}')"`; 
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${entry.tarikh}</td>
+        <td>${entry.matapelajaran}</td>
+        <td>${entry.kelas}</td>
+        <td>
+            <button class="btn btn-primary" 
+                    style="background-color: ${btnColor};"
+                    ${onClickAttr}>
+                ${btnText}
+            </button>
+        </td>
+    `;
+    tableBody.appendChild(row);
+});
+
+    } catch (error) {
+        console.warn('Tiada data RPH:', error.message);
+        tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Tiada data RPH atau fail belum wujud.</td></tr>';
+    }
+}
+// ========================
+// FUNGSI: Simpan Draft
+// ========================
+async function simpanDraft(index, tarikh, kelas, matapelajaran) {
+    console.log('📌 simpanDraft dipanggil:', { index, tarikh, kelas, matapelajaran });
+    if (!user) {
+        alert('Sila login semula.');
+        return;
+    }
+    const template = document.getElementById(`rph-${index}`);
+    if (!template) {
+        console.error(`❌ Template #rph-${index} tidak dijumpai!`);
+        return;
+    }
+    // Ambil SEMUA textarea dalam template
+    const textareas = template.querySelectorAll('textarea');
+    const standards = textareas[0]?.value || ''; // textarea pertama → STANDARD
+    const refleksi = textareas[1]?.value || '';  // textarea kedua → REFLEKSI
+
+    // Ambil SEMUA input text
+    const inputs = template.querySelectorAll('input[type="text"]');
+    const data = {
+        kelas: kelas,
+        matapelajaran: matapelajaran,
+        unit: inputs[2]?.value || '',
+        skill: inputs[3]?.value || '',
+        standards: standards,
+        objectives: inputs[4]?.value || '',
+        assessment: inputs[5]?.value || '',
+        teaching_aids: inputs[6]?.value || '',
+        refleksi: refleksi
+    };
+
+    let allData = {};
+    try {
+        const response = await fetch('/public/rph_data.json');
+        if (response.ok) {
+            allData = await response.json();
+        }
+    } catch (error) {
+        console.warn('Tiada data sedia ada:', error);
+    }
+
+    if (!allData[user.name]) allData[user.name] = {};
+    if (!allData[user.name][tarikh]) allData[user.name][tarikh] = [];
+    const existingIndex = allData[user.name][tarikh].findIndex(
+        r => r.kelas === kelas && r.matapelajaran === matapelajaran
+    );
+    if (existingIndex >= 0) {
+        allData[user.name][tarikh][existingIndex] = data;
+    } else {
+        allData[user.name][tarikh].push(data);
+    }
+
+    // Simpan ke server (rph_data.json)
+    try {
+        const response = await fetch('/save-rph-draft', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(allData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (result.success) {
+            alert('✅ RPH berjaya disimpan!');
+
+            // 🔸 Tambah: Hantar ke rph_admin.json jika refleksi diisi
+            if (refleksi.trim() !== '') {
+                const adminData = {
+                    guru: user.name,
+                    tarikh: tarikh,
+                    kelas: kelas,
+                    matapelajaran: matapelajaran,
+                    unit: data.unit,
+                    skill: data.skill,
+                    standards: data.standards,
+                    objectives: data.objectives,
+                    assessment: data.assessment,
+                    teaching_aids: data.teaching_aids,
+                    refleksi: data.refleksi,
+                    status: "Menunggu Semakan",
+                    comment: ""
+                };
+
+                try {
+                    const adminResponse = await fetch('/submit-rph-for-review', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(adminData)
+                    });
+
+                    if (!adminResponse.ok) {
+                        console.warn('⚠️ Gagal hantar ke rph_admin.json:', adminResponse.statusText);
+                        // Opsional: beri amaran lembut
+                        // alert('⚠️ RPH disimpan, tetapi gagal hantar untuk semakan admin.');
+                    } else {
+                        console.log('✅ RPH berjaya dihantar untuk semakan admin.');
+                    }
+                } catch (adminError) {
+                    console.error('❌ Ralat hantar ke admin:', adminError);
+                    // Boleh simpan ke localStorage sebagai fallback jika perlu
+                }
+            }
+
+            // Kemas kini UI
+            const button = document.getElementById(`saveBtn-${index}`);
+            if (button) {
+                button.textContent = 'SIMPAN';
+            }
+            if (typeof updateRphTable === 'function') {
+                updateRphTable();
+            }
+        } else {
+            alert('❌ Gagal menyimpan: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Ralat menyimpan RPH:', error);
+        alert('⚠️ Ralat sistem. Sila cuba lagi.');
+        // Fallback: simpan ke localStorage
+        localStorage.setItem('rph_data_fallback', JSON.stringify(allData));
+        const button = document.getElementById(`saveBtn-${index}`);
+        if (button) {
+            button.textContent = 'SIMPAN';
+        }
+        if (typeof updateRphTable === 'function') {
+            updateRphTable();
+        }
+    }
+}
+
+function cetakRph(index) {
+    const rphElement = document.getElementById(`rph-${index}`);
+    if (!rphElement) {
+        alert('RPH tidak dijumpai untuk dicetak.');
+        return;
+    }
+
+    // Cipta iframe sementara untuk cetakan
+    const printFrame = document.createElement('iframe');
+    printFrame.style.display = 'none';
+    document.body.appendChild(printFrame);
+
+    const doc = printFrame.contentDocument || printFrame.contentWindow.document;
+    doc.open();
+    doc.write(`
+        <html>
+        <head>
+            <title>Cetak RPH</title>
+            <style>
+                body { font-family: Arial, sans-serif; padding: 20px; }
+                table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+                th { background-color: #f2f2f2; }
+                h3 { text-align: center; }
+                textarea, input { border: none; background: none; width: 100%; font-family: Arial; }
+            </style>
+        </head>
+        <body>
+            ${rphElement.outerHTML}
+        </body>
+        </html>
+    `);
+    doc.close();
+
+    // Tunggu sebentar sebelum cetak (untuk memastikan render selesai)
+    setTimeout(() => {
+        printFrame.contentWindow.focus();
+        printFrame.contentWindow.print();
+        document.body.removeChild(printFrame);
+    }, 500);
+}
+
+// ========================
+// FUNGSI: Edit RPH
+// ========================
+async function editRph(tarikh, kelas, matapelajaran) {
+    // Set tarikh dalam input
+    document.getElementById('rphDate').value = tarikh;
+
+    // Muat data RPH untuk tarikh ini
+    let allData = {};
+    try {
+        const response = await fetch('/public/rph_data.json');
+        if (response.ok) {
+            allData = await response.json();
+        }
+    } catch (error) {
+        console.warn('Tiada data sedia ada:', error);
+    }
+
+    const rphArray = allData[user.name] && allData[user.name][tarikh] ? allData[user.name][tarikh] : [];
+    const rph = rphArray.find(r => r.kelas === kelas && r.matapelajaran === matapelajaran);
+
+    if (!rph) {
+        alert('❌ RPH tidak dijumpai.');
+        return;
+    }
+
+    // Jana template untuk RPH ini
+    let html = `
+        <div class="rph-template" id="rph-0">
+            <h3>RANCANGAN PENGAJARAN HARIAN</h3>
+            <table>
+                <tr>
+                    <th>DATE</th>
+                    <td><input type="text" value="${tarikh}" readonly></td>
+                </tr>
+                <tr>
+    		    <th>CLASS/SUBJECT</th>
+    		    <td><input type="text" value="${kelas}/${subjectMap[matapelajaran] || matapelajaran}" readonly></td>
+		</tr>
+                <tr>
+                    <th>UNIT</th>
+                    <td><input type="text" value="${rph.unit || ''}"></td>
+                </tr>
+                <tr>
+                    <th>SKILL</th>
+                    <td><input type="text" value="${rph.skill || ''}"></td>
+                </tr>
+                <tr>
+                    <th>STANDARD</th>
+                    <td><textarea style="height: 100px; resize: none;">${rph.standards || ''}</textarea></td>
+                </tr>
+                <tr>
+                    <th>OBJECTIVES</th>
+                    <td><input type="text" value="${rph.objectives || ''}"></td>
+                </tr>
+                <tr>
+                    <th>ASSESSMENT</th>
+                    <td><input type="text" value="${rph.assessment || ''}"></td>
+                </tr>
+                <tr>
+                    <th>TEACHING AIDS</th>
+                    <td><input type="text" value="${rph.teaching_aids || ''}"></td>
+                </tr>
+                <tr>
+                    <th>REFLEKSI</th>
+                    <td><textarea placeholder="Masukkan refleksi pengajaran">${rph.refleksi || ''}</textarea></td>
+                </tr>
+            </table>
+            <div style="text-align: center; margin-top: 15px;">
+                <button id="saveBtn-0" class="btn btn-primary" onclick="simpanDraft(0, '${tarikh}', '${kelas}', '${matapelajaran}')">SIMPAN</button>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('rphContainer').innerHTML = html;
+    console.log('✅ Template RPH untuk edit dijana');
+
+    // Scroll ke template RPH
+    document.querySelector('.rph-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideRphContainer() {
+    const container = document.getElementById('rphContainer');
+    if (container) {
+        container.innerHTML = ''; // Kosongkan kandungan
+        // Atau jika anda mahu hanya sembunyikan (bukan kosongkan):
+        // container.style.display = 'none';
+    }
+}
+
+document.addEventListener('click', function(event) {
+    const rphContainer = document.getElementById('rphContainer');
+    const rphTemplates = rphContainer.querySelectorAll('.rph-template');
+    
+    // Jika klik BUKAN di dalam mana-mana .rph-template
+    let clickedInsideRph = false;
+    rphTemplates.forEach(template => {
+        if (template.contains(event.target)) {
+            clickedInsideRph = true;
+        }
+    });
+
+    // Juga pastikan klik bukan pada butang "JANA RPH" atau input tarikh
+    const isActionButton = event.target.closest('.action-buttons') !== null;
+    
+    if (!clickedInsideRph && !isActionButton && rphTemplates.length > 0) {
+        hideRphContainer();
+    }
+});
+
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        Hak Cipta Terpelihara : Bayu Utara 2025
+    </footer>
+
+</body>
+</html>
