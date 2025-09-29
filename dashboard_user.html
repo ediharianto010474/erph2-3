@@ -84,27 +84,57 @@
             gap: 10px;
         }
 
-        .main-layout {
-            display: flex;
-            gap: 50px;
-            margin-bottom: 20px;
-	}
-
-	.left-col
-	    flex: 1;
-	    gap: 20px;
-	    box-sizing: border-box;
-	    margin-right: 10px;
-	}
-
-	.right-col {
-    	    flex: 1;
-    	    box-sizing: border-box;
-	    gap: 20px;
-	    box-sizing: border-box;
-	    margin-right: 10px;
+.main-layout {
+    display: flex;
+    gap: 20px; /* Kurangkan gap supaya muat 3 kolom */
+    margin-bottom: 20px;
+    width: 100%;
 }
-
+.left-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+.right-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+/* Kolom Tengah: Grid Minggu */
+.week-grid-container {
+    flex: 0 0 280px; /* Lebar tetap ~10 lajur nombor */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+.week-grid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+.week-grid td {
+    border: 1px solid #999;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    width: 10%;
+}
+/* Warna Status Minggu */
+.week-complete {
+    background-color: #3498db; /* Biru */
+    color: white;
+}
+.week-incomplete {
+    background-color: #e74c3c; /* Merah */
+    color: white;
+}
 /* Warna Jadual Mengikut Mata Pelajaran */
 .subject-BM  { background-color: #e74c3c !important; color: white; }
 .subject-BI  { background-color: #3498db !important; color: white; }
@@ -364,131 +394,135 @@
             <a href="login.html" class="logout-link" onclick="localStorage.removeItem('loggedInUser'); alert('Anda telah logout.');">Logout</a>
         </div>
 
-        <!-- Layout Utama -->
-        <div class="main-layout">
-            <!-- Kolom Kiri: Jadual Hari/Masa -->
-            <div class="left-col">
-                <table class="timetable">
-                    <thead>
-                        <tr>
-                            <th>Hari/Masa</th>
-                            <th>710 - 740</th>
-                            <th>740 - 810</th>
-                            <th>810 - 840</th>
-                            <th>840 - 910</th>
-                            <th>910 - 940</th>
-                            <th>940 - 1000</th>
-                            <th>1000 - 1030</th>
-                            <th>1030 - 1100</th>
-                            <th>1100 - 1130</th>
-                            <th>1130 - 1200</th>
-                            <th>1200 - 1230</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>ISNIN</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td>REHAT</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td>SELASA</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td>REHAT</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td>RABU</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td>REHAT</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td>KHAMIS</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td>REHAT</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td>JUMAAT</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td>REHAT</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Butang di bawah jadual -->
-                <div class="action-buttons">
-    <input type="date" id="rphDate" class="date-input">
-    <button class="btn btn-secondary" onclick="pilihTarikh()">TARIKH RPH</button>
-    <button class="btn btn-secondary" onclick="janaRph()">JANA RPH</button>
-    <button class="btn btn-primary" onclick="saveJadualWaktu()">SIMPAN</button>
-</div>
-
-                <!-- Container untuk RPH Templates -->
-        <div class="rph-container" id="rphContainer">
+<!-- Layout Utama -->
+<div class="main-layout">
+    <!-- Kolom Kiri: Jadual Hari/Masa -->
+    <div class="left-col">
+        <table class="timetable">
+            <thead>
+                <tr>
+                    <th>Hari/Masa</th>
+                    <th>710 - 740</th>
+                    <th>740 - 810</th>
+                    <th>810 - 840</th>
+                    <th>840 - 910</th>
+                    <th>910 - 940</th>
+                    <th>940 - 1000</th>
+                    <th>1000 - 1030</th>
+                    <th>1030 - 1100</th>
+                    <th>1100 - 1130</th>
+                    <th>1130 - 1200</th>
+                    <th>1200 - 1230</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ISNIN</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td>REHAT</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>SELASA</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td>REHAT</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>RABU</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td>REHAT</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>KHAMIS</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td>REHAT</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>JUMAAT</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td>REHAT</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Butang di bawah jadual -->
+        <div class="action-buttons">
+            <input type="date" id="rphDate" class="date-input">
+            <button class="btn btn-secondary" onclick="pilihTarikh()">TARIKH RPH</button>
+            <button class="btn btn-secondary" onclick="janaRph()">JANA RPH</button>
+            <button class="btn btn-primary" onclick="saveJadualWaktu()">SIMPAN</button>
         </div>
+        <!-- Container untuk RPH Templates -->
+        <div class="rph-container" id="rphContainer"></div>
     </div>
 
-            <!-- Kolom Kanan: Jadual RPH -->
-            <div class="right-col">
-                <table class="rph-table">
-                    <thead>
-                        <tr>
-                            <th>TARIKH</th>
-                            <th>MATAPELAJARAN</th>
-                            <th>KELAS</th>
-                            <th>ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody id="rphTableBody">
-                        <!-- Akan diisi secara dinamik -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <!-- Kolom Tengah: Jadual Minggu -->
+    <div class="week-grid-container">
+        <table class="week-grid" id="weekGrid">
+            <!-- Akan diisi secara dinamik oleh JavaScript -->
+        </table>
+    </div>
+
+    <!-- Kolom Kanan: Jadual RPH -->
+    <div class="right-col">
+        <table class="rph-table">
+            <thead>
+                <tr>
+                    <th>TARIKH</th>
+                    <th>MATAPELAJARAN</th>
+                    <th>KELAS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody id="rphTableBody">
+                <!-- Akan diisi secara dinamik -->
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
     <script>
@@ -516,13 +550,14 @@ const subjectMap = {
         // Papar nama user
         const user = JSON.parse(localStorage.getItem('loggedInUser'));
         if (user) {
-            document.querySelector('.welcome').innerHTML = `Selamat Datang : <strong>${user.name}</strong>`;
-            loadJadualWaktu();
-            updateRphTable(); // Panggil fungsi baru untuk muat data RPH selepas login
-        } else {
-            alert('Sila login terlebih dahulu.');
-            window.location.href = 'login.html';
-        }
+    document.querySelector('.welcome').innerHTML = `Selamat Datang : <strong>${user.name}</strong>`;
+    loadJadualWaktu();
+    updateRphTable();
+    generateWeekGrid(); // 👈 TAMBAH INI
+} else {
+    alert('Sila login terlebih dahulu.');
+    window.location.href = 'login.html';
+}
 
 // ========================
 // FUNGSI: Muat Jadual Waktu dari JSON (dengan warna mengikut mata pelajaran)
@@ -831,6 +866,86 @@ async function saveJadualWaktu() {
             return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
         }
 
+// ========================
+// FUNGSI: Jana Grid Minggu Pengajaran
+// ========================
+async function generateWeekGrid() {
+    if (!user) return;
+
+    try {
+        // 1. Muat takwim sekolah
+        const takwimRes = await fetch('/public/takwim.json');
+        if (!takwimRes.ok) throw new Error("takwim.json tidak dijumpai");
+        const takwim = await takwimRes.json();
+        if (!Array.isArray(takwim)) throw new Error("Format takwim.json tidak sah");
+
+        // 2. Muat data RPH
+        let rphData = {};
+        try {
+            const rphRes = await fetch('/public/rph_data.json');
+            if (rphRes.ok) {
+                const allRph = await rphRes.json();
+                rphData = allRph[user.name] || {};
+            }
+        } catch (e) {
+            console.warn("Tiada data RPH:", e);
+        }
+
+        // 3. Kumpul tarikh mengikut nombor minggu
+        const weeks = {};
+        takwim.forEach(entry => {
+            const weekNum = entry.week;
+            if (!weeks[weekNum]) weeks[weekNum] = [];
+            weeks[weekNum].push(entry.date);
+        });
+
+        // 4. Dapatkan minggu terakhir
+        const weekNumbers = Object.keys(weeks).map(Number).sort((a, b) => a - b);
+        const maxWeek = weekNumbers.length > 0 ? Math.max(...weekNumbers) : 40;
+
+        // 5. Hasilkan grid HTML
+        let html = '';
+        for (let start = 1; start <= maxWeek; start += 10) {
+            html += '<tr>';
+            for (let w = start; w < start + 10; w++) {
+                if (w > maxWeek) {
+                    html += '<td></td>';
+                } else {
+                    const datesInWeek = weeks[w] || [];
+                    let completeDays = 0;
+
+                    // Kira hari dengan RPH lengkap (ada refleksi)
+                    datesInWeek.forEach(date => {
+                        const dayRph = rphData[date] || [];
+                        if (Array.isArray(dayRph)) {
+                            dayRph.forEach(rph => {
+                                if (rph.refleksi && rph.refleksi.trim() !== '') {
+                                    completeDays++;
+                                }
+                            });
+                        }
+                    });
+
+                    // Tentukan warna
+                    const isComplete = completeDays >= 5;
+                    const statusClass = isComplete ? 'week-complete' : 'week-incomplete';
+                    html += `<td class="${statusClass}">${String(w).padStart(2, '0')}</td>`;
+                }
+            }
+            html += '</tr>';
+        }
+
+        // 6. Masukkan ke dalam DOM
+        const gridElement = document.getElementById('weekGrid');
+        if (gridElement) {
+            gridElement.innerHTML = html;
+        }
+
+    } catch (error) {
+        console.error("❌ Ralat menjana grid minggu:", error);
+        document.getElementById('weekGrid').innerHTML = '<tr><td colspan="10" style="text-align:center;color:red;">Ralat memuat grid minggu</td></tr>';
+    }
+}
         // ========================
         // FUNGSI: Jana RPH (DIPERBAIKI)
         // ========================
@@ -1304,6 +1419,7 @@ async function simpanDraft(index, tarikh, kelas, matapelajaran) {
             }
             if (typeof updateRphTable === 'function') {
                 updateRphTable();
+		generateWeekGrid();
             }
         } else {
             alert('❌ Gagal menyimpan: ' + result.message);
